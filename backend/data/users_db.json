@@ -1,0 +1,86 @@
+{
+  "admin@aurex.intelligence": {
+    "name": "Admin Operator",
+    "email": "admin@aurex.intelligence",
+    "password_hash": "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+    "role": "Executive Operator",
+    "is_verified": true,
+    "verification_code": "123456",
+    "registered_at": 1786766342,
+    "totp_secret_pending": "LBPAZ76N7Y3SQHWBSE7XZ3NKZHU3N5TN"
+  },
+  "hitanshpparikh@gmail.com": {
+    "name": "hitansh",
+    "email": "hitanshpparikh@gmail.com",
+    "password_hash": "ce2744b2f2f8f927488a1fdb202a2e08af449091bc727aaa2b24493d1892fe6a",
+    "role": "Institutional Operator",
+    "is_verified": true,
+    "verification_code": "986797",
+    "totp_enabled": true,
+    "registered_at": 1786782508,
+    "totp_secret": "KLNCXSUTFYJP4LN2X2XPPYPAT24WK3DD"
+  },
+  "hitanshpppparikh@gmail.com": {
+    "name": "hitansh parikh",
+    "email": "hitanshpppparikh@gmail.com",
+    "password_hash": "ce2744b2f2f8f927488a1fdb202a2e08af449091bc727aaa2b24493d1892fe6a",
+    "role": "Institutional Operator",
+    "is_verified": true,
+    "verification_code": "151551",
+    "totp_enabled": true,
+    "registered_at": 1786769298,
+    "totp_secret": "PNZAWKMCZZGCAWZEOVPH3HDA7IT2JDLV"
+  },
+  "test@aurex.com": {
+    "name": "Test User",
+    "email": "test@aurex.com",
+    "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "role": "Institutional Operator",
+    "is_verified": true,
+    "verification_code": "296223",
+    "totp_enabled": false,
+    "registered_at": 1786769780
+  },
+  "contact@hitanshparikh.com": {
+    "name": "Contact (HITANSHPARIKH)",
+    "email": "contact@hitanshparikh.com",
+    "password_hash": "ce2744b2f2f8f927488a1fdb202a2e08af449091bc727aaa2b24493d1892fe6a",
+    "role": "Organization Enterprise Admin (HITANSHPARIKH)",
+    "org_id": "ORG-HITANSHPARIKH",
+    "is_verified": true,
+    "verification_code": "000000",
+    "totp_enabled": true,
+    "registered_at": 1786770874,
+    "totp_secret": "BVWQFLN2A5E5LS5T5Z7LJRIJGFABOUY6"
+  },
+  "operator.test@aurex.intelligence": {
+    "name": "Operator Test",
+    "email": "operator.test@aurex.intelligence",
+    "password_hash": "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+    "role": "Institutional Operator",
+    "is_verified": false,
+    "verification_code": "646789",
+    "totp_enabled": false,
+    "registered_at": 1786778448
+  },
+  "test.prefix@aurex.intelligence": {
+    "name": "Test Prefix",
+    "email": "test.prefix@aurex.intelligence",
+    "password_hash": "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+    "role": "Institutional Operator",
+    "is_verified": false,
+    "verification_code": "263823",
+    "totp_enabled": false,
+    "registered_at": 1786780141
+  },
+  "test.root@aurex.intelligence": {
+    "name": "Test Root",
+    "email": "test.root@aurex.intelligence",
+    "password_hash": "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+    "role": "Institutional Operator",
+    "is_verified": false,
+    "verification_code": "550584",
+    "totp_enabled": false,
+    "registered_at": 1786780145
+  }
+}

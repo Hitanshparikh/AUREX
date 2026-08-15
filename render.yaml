@@ -1,0 +1,29 @@
+services:
+  # Python FastAPI Backend Web Service
+  - type: web
+    name: aurex-backend
+    env: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SEEK_AI_MODEL
+        value: claude-opus-4-8
+      - key: SEEK_AI_URL
+        value: https://seekai.cc/v1/messages
+      - key: NEW_API_KEY
+        sync: false
+      - key: SMTP_EMAIL
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
