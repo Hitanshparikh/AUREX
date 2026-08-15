@@ -26,6 +26,10 @@ class DataMartEngine:
     def get_connection(cls):
         if cls._conn is None:
             cls._conn = duckdb.connect(database=":memory:")
+            try:
+                cls._conn.execute("SET max_memory='128MB';")
+            except Exception:
+                pass
             cls._seed_database()
         return cls._conn
 
@@ -34,37 +38,34 @@ class DataMartEngine:
         if cls._seeded:
             return
 
-        np.random.seed(42)
-        n_rows = 1_000_000
-
-        regions = np.random.choice(["North America", "EMEA", "APAC", "LATAM"], size=n_rows, p=[0.40, 0.30, 0.20, 0.10])
-        categories = np.random.choice(["Enterprise SaaS", "Consumer Electronics", "Logistics Fleet", "Fintech API"], size=n_rows)
-
-        rev_base = np.where(regions == "North America", 185.0,
-                   np.where(regions == "EMEA", 140.0,
-                   np.where(regions == "APAC", 125.0, 110.0)))
-
-        gross_revenue = rev_base + np.random.exponential(scale=50.0, size=n_rows)
-        growth_pct = np.random.normal(loc=18.5, scale=5.0, size=n_rows)
-        churn_risk = np.random.uniform(low=0.5, high=4.0, size=n_rows)
-        latency = np.random.normal(loc=2.2, scale=0.4, size=n_rows)
-
-        apac_mask = (regions == "APAC")
-        latency[apac_mask] += np.random.choice([0.0, 1.8], size=apac_mask.sum(), p=[0.85, 0.15])
-
-        df = pd.DataFrame({
-            "region": regions,
-            "category": categories,
-            "gross_revenue": gross_revenue,
-            "growth_pct": growth_pct,
-            "churn_risk_score": churn_risk,
-            "latency_days": latency
-        })
-
-        cls._conn.register("raw_transactions", df)
+        # Seed enterprise transactions directly in DuckDB SQL without high Python RAM overhead (<10MB RAM)
         cls._conn.execute("""
             CREATE TABLE enterprise_transactions AS
-            SELECT * FROM raw_transactions;
+            SELECT
+                CASE (i % 4)
+                    WHEN 0 THEN 'North America'
+                    WHEN 1 THEN 'EMEA'
+                    WHEN 2 THEN 'APAC'
+                    ELSE 'LATAM'
+                END AS region,
+                CASE (i % 4)
+                    WHEN 0 THEN 'Enterprise SaaS'
+                    WHEN 1 THEN 'Consumer Electronics'
+                    WHEN 2 THEN 'Logistics Fleet'
+                    ELSE 'Fintech API'
+                END AS category,
+                ROUND(
+                    CASE (i % 4)
+                        WHEN 0 THEN 185.0
+                        WHEN 1 THEN 140.0
+                        WHEN 2 THEN 125.0
+                        ELSE 110.0
+                    END + (random() * 80.0), 2
+                ) AS gross_revenue,
+                ROUND(14.0 + (random() * 9.0), 1) AS growth_pct,
+                ROUND(0.5 + (random() * 3.5), 1) AS churn_risk_score,
+                ROUND(2.0 + (random() * 0.4) + CASE WHEN (i % 4) = 2 AND random() > 0.85 THEN 1.8 ELSE 0.0 END, 2) AS latency_days
+            FROM generate_series(1, 50000) s(i);
         """)
         cls._seeded = True
 
